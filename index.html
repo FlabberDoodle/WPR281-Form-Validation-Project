@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!--Tiaan Theron * 577856-->
+<!--Danillo Paulsen * 577735-->
+<!--Dérik Janse van Rensburg * 577184-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Details</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <form action="" id="theForm" class="gridOverView">
+      <section id="uniqueBlue"></section>
+      <section class="">
+        <header>
+          <h2>Basic Details</h2>
+        </header>
+        <hr />
+        <section class="fieldGrids">
+          <!--First Name-->
+          <section class="fieldAlignLeft">
+            <label for="First" id="firstLabel">First Name</label>
+            <input type="text" name="First" id="First" class="chngcolor" placeholder="John" required/>
+          </section>
+
+          <!--Last Name-->
+          <section class="fieldAlignRight">
+            <label for="Last" id="lastLabel">Last Name</label>
+            <input type="text" name="Last" id="Last" class="chngcolor" placeholder="Doe" required />
+          </section>
+
+          <!--Email-->
+          <section class="fieldAlignLeft">
+            <label for="Email" id="emailLabel">Email ID</label>
+            <input
+              type="email"
+              name="Email"
+              id="Email"
+              class="chngcolor"
+              placeholder="example@email.com"
+              required
+            />
+          </section>
+
+          <!--User ID-->
+          <section class="fieldAlignRight">
+            <label for="userID" id="userIDLabel">Your User ID</label>
+            <input type="text" name="userID" id="userID" class="chngcolor" placeholder="ID" required/>
+          </section>
+
+          <!--Country select-->
+
+          <section class="fieldAlignLeft">
+            <label for="Country" id="countryLabel">Country</label>
+            <select name="Country" id="Country" class="chngcolor" required>
+              <option value = "">----- Select Country -----</option>
+            </select>
+          </section>
+
+          <!--State select-->
+
+          <section id="StateCityGrid" class="fieldAlignRight" required>
+            <section class="StateCityAlign">
+              <label for="State" id="stateLable">State</label>
+              <select name="State" id="State" class="chngcolor">
+                <option value = "">----- State -----</option>
+              </select>
+            </section>
+
+            <!--City select-->
+
+            <section class="StateCityAlign">
+              <label for="City" id="cityLable">City</label>
+              <select name="City" id="City" class="chngcolor">
+                <option value = "">Select City</option>
+              </select>
+            </section>
+
+          </section>
+          
+          <!--Phone Number-->
+          <section class = "fieldAlignLeft">
+            <label for = "Phone" id = "phoneLabel">Phone Number</label>
+            <input
+              type = "tel"
+              name = "Phone"
+              id = "Phone"
+              class="chngcolor"
+              placeholder = ""
+              required
+              />
+          </section>
+
+          <!--Ref Code-->
+          <section id="RefCodeAlign">
+            <input
+              type="text"
+              name="RefCod"
+              id="RefCod"
+              class="chngcolor"
+              placeholder="Reference Code"
+              required
+            />
+          </section>
+        </section>
+        <hr />
+        
+        <section class="buttonGrid">
+          <!--button to reset the fields-->
+          <section>
+            <input id="Reset" type="reset" value="Reset All" />
+          </section>
+          <section></section>
+          <!--button to continue-->
+          <section>
+            <input id="Continue" type="submit" value="Continue" />
+          </section>
+        </section>
+      </section>
+      <section id="uniqueGrey"></section>
+    </form>
+    <div id="error-message" class="error"></div>
+
+    <!--what comes on next page-->
+    <script>
+    document.getElementById("theForm").addEventListener("submit", function(event) 
+    {
+      event.preventDefault();
+
+      const firstName = document.getElementById("First").value;
+      const lastName = document.getElementById("Last").value;
+      const email = document.getElementById("Email").value;
+      const userID = document.getElementById("userID").value;
+      const country = document.getElementById("Country").value;
+      const state = document.getElementById("State").value;
+      const city = document.getElementById("City").value;
+      const phone = document.getElementById("Phone").value;
+      const refCode = document.getElementById("RefCod").value;
+
+      const queryString = `?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}&email=${encodeURIComponent(email)}&userID=${encodeURIComponent(userID)}&country=${encodeURIComponent(country)}&state=${encodeURIComponent(state)}&city=${encodeURIComponent(city)}&phone=${encodeURIComponent(phone)}&refCode=${encodeURIComponent(refCode)}`;
+
+      window.location.href = `information.html${queryString}`;
+    });
+
+    var chngc = document.querySelectorAll('.chngcolor');
+
+    chngc.forEach(function(section) 
+    {
+      section.addEventListener('mouseover', function()
+      {
+        this.style.borderBottomWidth = '2px';
+        this.style.borderColor = 'rgb(0, 153, 254)';
+      });
+
+      section.addEventListener('mouseout', function()
+      {
+        this.style.borderBottomWidth = '1px';
+        this.style.borderColor = 'rgba(57, 61, 65, 0.558)';
+      });
+    });
+
+    const countries = [
+      "United States", "Canada", "Mexico", "United Kingdom", 
+      "South Africa", "Australia", "India", "Brazil", "China", "Russia"
+    ];
+
+    const countryDropdown = document.getElementById("Country");
+
+    countries.forEach(country => 
+    {
+      const option = document.createElement("option");
+      option.textContent = country;
+      option.value = country;
+      countryDropdown.appendChild(option);
+    });
+
+    document.getElementById("Country").addEventListener("change", function() 
+    {
+      const selectedCountry = this.value;
+      const states = statesAndCities[selectedCountry];
+      const stateDropdown = document.getElementById("State");
+      const cityDropdown = document.getElementById("City");
+
+      // Clear previous options
+      stateDropdown.innerHTML = "<option value=''>----- State -----</option>";
+      cityDropdown.innerHTML = "<option value=''>Select City</option>";
+
+      for (const state in states) 
+      {
+        const option = document.createElement("option");
+        option.textContent = state;
+        option.value = state;
+        stateDropdown.appendChild(option);
+      }
+    });
+
+    document.getElementById("State").addEventListener("change", function() 
+    {
+      const selectedState = this.value;
+      const selectedCountry = document.getElementById("Country").value;
+      const cities = statesAndCities[selectedCountry][selectedState];
+      const cityDropdown = document.getElementById("City");
+
+      // Clear previous options
+      cityDropdown.innerHTML = "<option value=''>Select City</option>";
+
+      cities.forEach(city => 
+      {
+        const option = document.createElement("option");
+        option.textContent = city;
+        option.value = city;
+        cityDropdown.appendChild(option);
+      });
+    });
+
+    const statesAndCities = 
+    {
+      "United States": {
+          "California": ["Los Angeles", "San Francisco"],
+          "Texas": ["Houston", "Dallas"]
+      },
+      "Canada": {
+          "Ontario": ["Toronto", "Ottawa"],
+          "British Columbia": ["Vancouver", "Victoria"]
+      },
+      "Mexico": {
+          "Jalisco": ["Guadalajara", "Puerto Vallarta"],
+          "Nuevo León": ["Monterrey", "San Nicolás"]
+      },
+      "United Kingdom": {
+          "England": ["London", "Manchester"],
+          "Scotland": ["Edinburgh", "Glasgow"]
+      },
+      "South Africa": {
+          "Gauteng": ["Johannesburg", "Pretoria"],
+          "Western Cape": ["Cape Town", "Stellenbosch"]
+      },
+      "Australia": {
+          "New South Wales": ["Sydney", "Newcastle"],
+          "Victoria": ["Melbourne", "Geelong"]
+      },
+      "India": {
+          "Delhi": ["New Delhi", "Old Delhi"],
+          "Maharashtra": ["Mumbai", "Pune"]
+      },
+      "Brazil": {
+          "São Paulo": ["São Paulo", "Campinas"],
+          "Rio de Janeiro": ["Rio de Janeiro", "Niterói"]
+      },
+      "China": {
+          "Beijing": ["Beijing", "Tongzhou District"],
+          "Shanghai": ["Shanghai", "Pudong"]
+      },
+      "Russia": {
+          "Moscow": ["Moscow", "Zelenograd"],
+          "Saint Petersburg": ["Saint Petersburg", "Pushkin"]
+      }
+    };
+    
+    </script>
+    
+    <script src="index.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() 
+      {
+        const phoneInput = document.getElementById("Phone");
+        const countrySelect = document.getElementById("Country");
+
+        const countryPhoneCodes = 
+          {
+            "United States": "+1 ***-***-****",
+            "Canada": "+1 ***-***-****",
+            "Mexico": "+52 **-****-****",
+            "United Kingdom": "+44 ****-******",
+            "South Africa": "+27 ** *** ****",
+            "Australia": "+61 * **** ****",
+            "India": "+91 ***** *****",
+            "Brazil": "+55 ** ****-****",
+            "China": "+86 ** **** ****",
+            "Russia": "+7 *** ***-**-**"
+          };
+
+          phoneInput.placeholder = countryPhoneCodes[countrySelect.value] || '';
+
+          // Update placeholder on country change
+          countrySelect.addEventListener("change", function() 
+          {
+            phoneInput.placeholder = countryPhoneCodes[countrySelect.value] || '';
+          });
+      });
+    </script>
+  </body>
+</html>

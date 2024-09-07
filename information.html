@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details Display</title>
+    <link rel="stylesheet" href="info.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="blue-section"></div>
+        <div class="details-section">
+            <h2>User Details</h2>
+            <div class="details">
+            <span>First Name:</span>
+            <div id="displayFirstName"></div>
+            <span>Last Name:</span>
+            <div id="displayLastName"></div>
+            <span>Email:</span>
+            <div id="displayEmail"></div>
+            <span>User ID:</span>
+            <div id="displayUserID"></div>
+            <span>Country:</span>
+            <div id="displayCountry"></div>
+            <span>State:</span>
+            <div id="displayState"></div>
+            <span>City:</span>
+            <div id="displayCity"></div>
+            <span>Phone:</span>
+            <div id="displayPhone"></div>
+            <span>Reference Code:</span>
+            <div id="displayRefCode"></div>
+        </div>
+        <div class="grey-section"></div>
+    </div>   
+
+    <script>
+        function getParameterByName(name) 
+        {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            const regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+            const results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        document.getElementById("displayFirstName").textContent = getParameterByName("firstName");
+        document.getElementById("displayLastName").textContent = getParameterByName("lastName");
+        document.getElementById("displayEmail").textContent = getParameterByName("email");
+        document.getElementById("displayUserID").textContent = getParameterByName("userID");
+        document.getElementById("displayCountry").textContent = getParameterByName("country");
+        document.getElementById("displayState").textContent = getParameterByName("state");
+        document.getElementById("displayCity").textContent = getParameterByName("city");
+        document.getElementById("displayPhone").textContent = getParameterByName("phone");
+        document.getElementById("displayRefCode").textContent = getParameterByName("refCode");
+    </script>
+</body>
+</html>
