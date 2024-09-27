@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/f30b652e-c3ea-429b-91f2-c582a856b671)# Form Validation Project
+# Form Validation Project
 
 ## Overview
 This project focuses on creating a **form validation** system using HTML and JavaScript. It demonstrates client-side form validation, ensuring that user input is correctly formatted before being processed and submitted. The validation aims to ensure data correctness, protect user information, and safeguard the application from malicious input.
